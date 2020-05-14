@@ -11,8 +11,6 @@ namespace NaukaNauka4
     {
         static void Main(string[] args)
         {
-            Book book = new Book();
-            BookRepository repository = new BookRepository();
 
             Console.WriteLine("Press 1 if you want to create a new book or press 2 to search a book by it's id");                                 //Menu
             string YesOrNo = Console.ReadLine();

@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace NaukaNauka4
 {
-    class BookRepository
+    public class BookRepository
     {
         public Book Get(int id)//Method that searches given book in the database
         {
@@ -20,6 +20,7 @@ namespace NaukaNauka4
             var result = command.ExecuteReader();
             result.Read();
             var book = FillBook(result);
+            connection.Close();
             return book;
         }
         //  public List<Book> List(int Limit = 5)//idk yet
@@ -50,8 +51,9 @@ namespace NaukaNauka4
         public Book FillBook(SqlDataReader result)//Method that fills the book variable with database info
         {
             var Book = new Book();
-            Book.Name = (string)result.GetValue(0);
-            Book.ReleaseDate = (DateTime)result.GetValue(1);
+            Book.id = (int)result.GetValue(0);
+            Book.Name = (string)result.GetValue(1);
+            Book.ReleaseDate = (DateTime)result.GetValue(2);
             Book.Author = (string)result.GetValue(3);
             Book.NumberOfPages = (int)result.GetValue(4);
             return Book;
