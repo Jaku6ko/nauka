@@ -11,16 +11,28 @@ namespace NaukaNauka4
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Press 1 if you want to create a new book or press 2 to search a book by it's id");                                 //Menu
+            Menu:
+            Console.WriteLine("Press 1 if you want to create a new book. Press 2 to search a book by it's id. Pres 3 if you want to see a list of books. Press 4 to exit.");                                 //Menu
             string YesOrNo = Console.ReadLine();
             switch (YesOrNo)
             {
                 case "1":
                     CreateOption();
-                    break;
+                    Console.ReadKey();
+                    Console.Clear();
+                    goto Menu;
                 case "2":
                     GetOption();
+                    Console.ReadKey();
+                    Console.Clear();
+                    goto Menu;
+                case "3":
+                    ListOption();
+                    Console.ReadKey();
+                    Console.Clear();
+                    goto Menu;
+                case "4":
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("wrong input");
@@ -42,6 +54,7 @@ namespace NaukaNauka4
             Console.WriteLine("Book Release Date: {0}", book.ReleaseDate.ToString());
             Console.WriteLine("Book Author: {0}", book.Author);
             Console.WriteLine("Number of Pages: {0}", book.NumberOfPages.ToString());
+            Console.WriteLine("Press any key to go back to the menu");
         }
         public static void CreateOption()//An option to enable the Create method
         {
@@ -61,6 +74,19 @@ namespace NaukaNauka4
             Console.Clear();
             Repo.Create(book);
             Console.WriteLine("New book has been created in the database!");
+            Console.WriteLine("Press any key to go back to the menu");
+        }
+        public static void ListOption()
+        {
+            BookRepository Repo = new BookRepository();
+            var list = Repo.List();
+            Console.WriteLine("The list:");
+            foreach (Book book in list)
+            {
+                Console.WriteLine(book.Id.ToString(), book.Name, book.ReleaseDate.ToString(), book.Author, book.NumberOfPages.ToString());
+            }
+            Console.WriteLine("Press any key to go back to the menu");
+
         }
 
     }

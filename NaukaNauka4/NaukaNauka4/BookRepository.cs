@@ -13,7 +13,7 @@ namespace NaukaNauka4
         {
 
             id = int.Parse(Console.ReadLine());
-            string commandLine = string.Format("SELECT * FROM books WHERE id ={0})", id);
+            string commandLine = string.Format("SELECT * FROM books WHERE id ={0}", id);
             var connection = getConnection();
             connection.Open();
             var command = new SqlCommand(commandLine, connection);
@@ -23,13 +23,25 @@ namespace NaukaNauka4
             connection.Close();
             return book;
         }
-        //  public List<Book> List(int Limit = 5)//idk yet
-        //     {
+        public List<Book> List(int Limit = 5)//idk yet
+           {
+            var books = new List<Book>();
+            string commandLine = string.Format("SELECT TOP{0} FROM books", Limit);
+            var connection = getConnection();
+            var command = new SqlCommand(commandLine, connection);
+            connection.Open();
+            var result = command.ExecuteReader();
+            while(result.Read())
+            {
+                var book = FillBook(result);
+            }
+            connection.Close();
+            return books;
 
-        //     }
+           }
         public void Create(Book book)//Method that creates a new book in the database
         {
-            string commandLine = string.Format("INSERT INTO products VALUES('{0}', '{1}', '{2}', '{3}')", book.Name, book.ReleaseDate.ToString("dd-MM-yyyy"), book.Author, book.NumberOfPages);
+            string commandLine = string.Format("INSERT INTO products VALUES('{0}', '{1}', '{2}', {3})", book.Name, book.ReleaseDate.ToString("dd-MM-yyyy"), book.Author, book.NumberOfPages);
             var connection = getConnection();
             var command = new SqlCommand(commandLine, connection);
             connection.Open();
@@ -51,7 +63,7 @@ namespace NaukaNauka4
         public Book FillBook(SqlDataReader result)//Method that fills the book variable with database info
         {
             var Book = new Book();
-            Book.id = (int)result.GetValue(0);
+            Book.Id = (int)result.GetValue(0);
             Book.Name = (string)result.GetValue(1);
             Book.ReleaseDate = (DateTime)result.GetValue(2);
             Book.Author = (string)result.GetValue(3);
