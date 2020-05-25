@@ -12,7 +12,6 @@ namespace NaukaNauka4
         public Book Get(int id)//Method that searches given book in the database
         {
 
-            id = int.Parse(Console.ReadLine());
             string commandLine = string.Format("SELECT * FROM books WHERE id ={0}", id);
             var connection = getConnection();
             connection.Open();
@@ -23,17 +22,17 @@ namespace NaukaNauka4
             connection.Close();
             return book;
         }
-        public List<Book> List(int Limit = 5)//idk yet
+        public List<Book> List(int Limit = 5)
            {
             var books = new List<Book>();
-            string commandLine = string.Format("SELECT TOP{0} FROM books", Limit);
+            string commandLine = string.Format("SELECT TOP({0}) FROM books", Limit);
             var connection = getConnection();
             var command = new SqlCommand(commandLine, connection);
             connection.Open();
             var result = command.ExecuteReader();
             while(result.Read())
             {
-                var book = FillBook(result);
+                books.Add(FillBook(result));
             }
             connection.Close();
             return books;
@@ -41,12 +40,37 @@ namespace NaukaNauka4
            }
         public void Create(Book book)//Method that creates a new book in the database
         {
-            string commandLine = string.Format("INSERT INTO products VALUES('{0}', '{1}', '{2}', {3})", book.Name, book.ReleaseDate.ToString("dd-MM-yyyy"), book.Author, book.NumberOfPages);
+            string commandLine = string.Format("INSERT INTO books VALUES('{0}', '{1}', '{2}', {3})", book.Name, book.ReleaseDate.ToString("dd-MM-yyyy"), book.Author, book.NumberOfPages);
             var connection = getConnection();
             var command = new SqlCommand(commandLine, connection);
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
+        }
+        public Book Delete(int id)
+        {
+            string commandLine = string.Format("DELETE FROM books WHERE id = {0} ", id);
+            var connection = getConnection();
+            connection.Open();
+            var command = new SqlCommand(commandLine, connection);
+            var result = command.ExecuteReader();
+            result.Read();
+            var book = FillBook(result);
+            connection.Close();
+            return book;
+        }
+        public Book Update(string name, string row, string column)
+        {
+            string commandLine = string.Format("UPDATE books SET {0} = {1} WHERE name = {2}", column, row, name);
+            var connection = getConnection();
+            connection.Open();
+            var command = new SqlCommand(commandLine, connection);
+            var result = command.ExecuteReader();
+            result.Read();
+            var book = FillBook(result);
+            connection.Close();
+            return book;
+
         }
         private SqlConnection getConnection()//Method that establishes connection to the database
         {

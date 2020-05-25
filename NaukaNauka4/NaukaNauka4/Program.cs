@@ -9,30 +9,45 @@ namespace NaukaNauka4
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Menu:
-            Console.WriteLine("Press 1 if you want to create a new book. Press 2 to search a book by it's id. Pres 3 if you want to see a list of books. Press 4 to exit.");                                 //Menu
-            string YesOrNo = Console.ReadLine();
-            switch (YesOrNo)
+            Console.WriteLine("Press 1 if you want to create a new book. Press 2 to search a book by it's id. Press 3 if you want to see a list of books. Press 4 to delete a book from the database. Press 5 if you want to update a book. Press 6 if you want to exit ");                                 //Menu
+            string Menu = Console.ReadLine();
+            switch (Menu)
             {
                 case "1":
                     CreateOption();
                     Console.ReadKey();
                     Console.Clear();
-                    goto Menu;
+                    Main();
+                    break;
                 case "2":
                     GetOption();
                     Console.ReadKey();
                     Console.Clear();
-                    goto Menu;
+                    Main();
+                    break;
                 case "3":
                     ListOption();
                     Console.ReadKey();
                     Console.Clear();
-                    goto Menu;
+                    Main();
+                    break;
                 case "4":
-                    Environment.Exit(0);
+                    DeleteOption();
+                    Console.ReadKey();
+                    Console.Clear();
+                    Main();
+                    break;
+                case "5":
+                    UpdateOption();
+                    DeleteOption();
+                    Console.ReadKey();
+                    Console.Clear();
+                    Main();
+                    break;
+
+                case "6":
                     break;
                 default:
                     Console.WriteLine("wrong input");
@@ -83,12 +98,54 @@ namespace NaukaNauka4
             Console.WriteLine("The list:");
             foreach (Book book in list)
             {
-                Console.WriteLine(book.Id.ToString(), book.Name, book.ReleaseDate.ToString(), book.Author, book.NumberOfPages.ToString());
+                Console.WriteLine("{0} - {1} - {2} - {3} - {4}",book.Id.ToString(), book.Name, book.ReleaseDate.ToString(), book.Author, book.NumberOfPages.ToString());
             }
+            Console.WriteLine("Press any key to go back to the menu");
+
+
+        }
+        public static void DeleteOption()
+        {
+            BookRepository Repo = new BookRepository();
+            Console.WriteLine("What's the ID of the book you want to delete from the database?");
+            int id = int.Parse(Console.ReadLine());
+            Console.WriteLine("Are you sure you want to delete this book from the database(y/n)");
+            string yesOrNo = Console.ReadLine();
+            switch (yesOrNo)
+            {
+                case "y":
+                    Repo.Delete(id);
+                    Console.WriteLine("Book has been deleted");
+                    break;
+                case "n":
+                    Console.WriteLine("ok");
+                    break;
+                default:
+                    Console.WriteLine("Wrong input");
+                    break;
+            }
+            Console.WriteLine("Press any key to go back to the menu");
+        }
+            public static void UpdateOption()
+        {
+            BookRepository Repo = new BookRepository();
+            Console.WriteLine("What's the name of the book you want to update?");
+            string name = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("What's the name of the coulmn you want to update?");
+            string column = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("What's the new row's name?");
+            string row = Console.ReadLine();
+            Console.Clear();
+            Repo.Update(name, row, column);
+            Console.WriteLine("Row has been updated!");
             Console.WriteLine("Press any key to go back to the menu");
 
         }
 
-    }
+        }
+
+    
 }
 
