@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>My calculator</title>
+</head>
+<body>
+<input type="number" id="input_one" name="input_one">
+<input type="button" id="+" name="+" value="+" onclick="add()">
+<input type="button" id="-" name="-" value="-" onclick="sub()">
+<input type="button" id="*" name="*" value="*" onclick="mult()">
+<input type="button" id="/" name="/" value="/" onclick="div()">
+<input type="number" id="input_two" name="input_two">
+<input type="number" id="output" name="output">
+<script>
+    function add(){
+        var a = document.getElementById("input_one");
+        var b = document.getElementById("input_two");
+        var output = document.getElementById("output");
+        output.value = a+b;
+    }
+    function sub(){
+        var a = document.getElementById("input_one");
+        var b = document.getElementById("input_two");
+        var output = document.getElementById("output");
+        output.value = a-b;
+    }
+
+    function mult(){
+        var a = document.getElementById("input_one");
+        var b = document.getElementById("input_two");
+        var output = document.getElementById("output");
+        output.value = a*b;
+    }
+
+    function div(){
+        var a = document.getElementById("input_one");
+        var b = document.getElementById("input_two");
+        var output = document.getElementById("output");
+        output.value = a/b;
+    }
+
+</script>
+<input type="button" id="button_one" name="button_one" value="button_one" onclick="disabletwo()">
+<input type="button" id="button_two" name="button_two" value="button_two" onclick="disablethree()">
+<input type="button" id="button_three" name="button_three" value="button_three" onclick="disablefour()">
+<input type="button" id="button_four" name="button_four" value="button_four" onclick="disablefour()">
+<script>
+    function disabletwo(){
+        const button_two = document.querySelector('button_two')
+        if(button_two.disabled = false)
+        {
+        button_two.disabled = true;
+        }
+        else{
+            button_two.disabled = false;
+        }
+    }
+    function disablethree(){
+        const button_three = document.querySelector('button_three')
+        if(button_three.disabled = false)
+        {
+        button_three.disabled = true;
+        }
+        else{
+            button_three.disabled = false;
+        }
+    }
+    function disablefour(){
+        const button_four = document.querySelector('button_four')
+        if(button_four.disabled = false)
+        {
+        button_four.disabled = true;
+        }
+        else{
+            button_four.disabled = false;
+        }
+    }
+    
+</script>
+</body>
+</html>

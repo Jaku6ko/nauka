@@ -25,7 +25,7 @@ namespace NaukaNauka4
         public List<Book> List(int Limit = 5)
            {
             var books = new List<Book>();
-            string commandLine = string.Format("SELECT TOP({0}) FROM books", Limit);
+            string commandLine = string.Format("SELECT TOP({0}) * FROM books", Limit);
             var connection = getConnection();
             var command = new SqlCommand(commandLine, connection);
             connection.Open();
@@ -47,34 +47,28 @@ namespace NaukaNauka4
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public Book Delete(int id)
+        public void Delete(int id)
         {
             string commandLine = string.Format("DELETE FROM books WHERE id = {0} ", id);
             var connection = getConnection();
             connection.Open();
             var command = new SqlCommand(commandLine, connection);
-            var result = command.ExecuteReader();
-            result.Read();
-            var book = FillBook(result);
+            var result = command.ExecuteNonQuery();
             connection.Close();
-            return book;
         }
-        public Book Update(string name, string row, string column)
+        public void Update(int id, Book book)
         {
-            string commandLine = string.Format("UPDATE books SET {0} = {1} WHERE name = {2}", column, row, name);
+            string commandLine = string.Format("UPDATE books SET name = '{1}', release_date = '{2}', author = '{3}', number_of_pages = '{4}' WHERE id = {0}", id, book.Name.ToString(), book.ReleaseDate.ToString(), book.Author.ToString(), book.NumberOfPages.ToString());
             var connection = getConnection();
             connection.Open();
             var command = new SqlCommand(commandLine, connection);
-            var result = command.ExecuteReader();
-            result.Read();
-            var book = FillBook(result);
+            var result = command.ExecuteNonQuery();
             connection.Close();
-            return book;
 
         }
         private SqlConnection getConnection()//Method that establishes connection to the database
         {
-            return new SqlConnection(@"Data Source=JAKUB\SQLEXPRESS
+            return new SqlConnection(@"Data Source=JAKUB\SQLEXPRESS;
                 Initial Catalog=book_database;
                 Integrated Security=True;
                 Connect Timeout=30;

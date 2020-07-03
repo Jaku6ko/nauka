@@ -41,7 +41,6 @@ namespace NaukaNauka4
                     break;
                 case "5":
                     UpdateOption();
-                    DeleteOption();
                     Console.ReadKey();
                     Console.Clear();
                     Main();
@@ -54,7 +53,6 @@ namespace NaukaNauka4
                     break;
             }
 
-            Console.ReadKey();
 
 
         }
@@ -98,7 +96,7 @@ namespace NaukaNauka4
             Console.WriteLine("The list:");
             foreach (Book book in list)
             {
-                Console.WriteLine("{0} - {1} - {2} - {3} - {4}",book.Id.ToString(), book.Name, book.ReleaseDate.ToString(), book.Author, book.NumberOfPages.ToString());
+                Console.WriteLine("{0} - {1}",book.Id.ToString(), book.Name);
             }
             Console.WriteLine("Press any key to go back to the menu");
 
@@ -129,17 +127,27 @@ namespace NaukaNauka4
             public static void UpdateOption()
         {
             BookRepository Repo = new BookRepository();
-            Console.WriteLine("What's the name of the book you want to update?");
-            string name = Console.ReadLine();
+            var newBook = new Book();
+            Console.WriteLine("What's the ID of the book you want to update?");
+            int id = int.Parse(Console.ReadLine());
             Console.Clear();
-            Console.WriteLine("What's the name of the coulmn you want to update?");
-            string column = Console.ReadLine();
+            var currentBook = Repo.Get(id);
+            Console.WriteLine("Current status");
+            Console.WriteLine("Name:" + currentBook.Name);
+            Console.WriteLine("Release Date:"+currentBook.ReleaseDate);
+            Console.WriteLine("Author"+currentBook.Author);
+            Console.WriteLine("Number of pages:"+currentBook.NumberOfPages);
+            Console.WriteLine("Type in the new name");
+            newBook.Name = Console.ReadLine();
+            Console.WriteLine("Type in the new release date");
+            newBook.ReleaseDate = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("Type in the new author");
+            newBook.Author = Console.ReadLine();
+            Console.WriteLine("Type in the new number of pages");
+            newBook.NumberOfPages = int.Parse(Console.ReadLine());
             Console.Clear();
-            Console.WriteLine("What's the new row's name?");
-            string row = Console.ReadLine();
-            Console.Clear();
-            Repo.Update(name, row, column);
-            Console.WriteLine("Row has been updated!");
+            Repo.Update(id, newBook);
+            Console.WriteLine("Book has been updated!");
             Console.WriteLine("Press any key to go back to the menu");
 
         }
