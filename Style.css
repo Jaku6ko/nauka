@@ -1,0 +1,40 @@
+/* input[type="number"]{
+    background-color: darkgrey; 
+    width: 5%;
+    padding: 12px 20px;
+    margin: 50px 10px;
+    border-radius: 4px;
+}
+input[type="button"]{
+    background-color: grey;
+    font-weight: bold;
+    border: 3px solid black;
+}
+select{
+    width: 3%;
+    height: 3%;
+    font-size: 20;
+    background-color: grey;
+    border-radius: 4px;
+
+}
+input[type="text"]{
+    width: 4%;
+    height: 5%;
+    margin: 50px 10px;
+    padding: 12px 20px;
+    border-radius: 4px;
+} */
+.background{
+    margin-top: 3rem;
+    background-color: rgb(241, 241, 241);
+}
+.link{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.margin-bottom{
+    margin-bottom: 3em;
+}
+
+    
+    

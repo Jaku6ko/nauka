@@ -1,0 +1,34 @@
+    $('#table-content').append(
+        $('<div class="row main-row" id="row-'+id+'">').append(
+            $('<div class="col-4">').append(
+                $('<div class="row">').append(
+                    $('<input class="form-control col-10" id="row-name-'+id+'" value="'+Name+'" disabled />')
+                )
+            )
+        ).append (
+            $('<div class="col-4">').append(
+                $('<div class="row">').append(
+                    $('<input class="form-control col-10" id="row-name-'+id+'" value="'+Author+'" disabled />')
+                )
+            )
+        ).append(
+            $('<div class="col-1">').append(
+                $('<div class="row">').append(
+                    $('<input class="form-control col-10" id="row-name-'+id+'" value="'+ReleaseDate+'" disabled />')
+                )
+            )
+        ).append(
+            $('<div class="col-3">').append(
+                $('<div class="row">').append(
+                    $('<input class="form-control col-10" id="row-name-'+id+'" value="'+Name+'" disabled />')
+                )
+            )
+        )
+    )
+
+
+
+
+    '<button id="row-edit-'+id+'" class="btn-warning" onclick="Edit('+id+')" editing=false >Edit</button>'
+
+    '<button id="row-delete-'+id+'" class="btn-danger" onclick="Delete('+id+')"  >Delete</button>'
